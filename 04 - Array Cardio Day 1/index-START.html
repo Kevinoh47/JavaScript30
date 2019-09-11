@@ -31,7 +31,7 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-    let result = inventors.filter(e=>{
+    let result = inventors.filter( e => {
       if (e.year >= 1500 && e.year < 1600) { return e;}
     })
     console.log('filter for inventors born in the 1500s: ', result);
@@ -62,24 +62,30 @@
 
     console.log('total years lived by inventors: ', result);
     console.log('\n ...\n');
+
+
+
     // 5. Sort the inventors by years lived
-    // let inventorLivespan = inventors.map(e => {
-    //   let inventor = e.first + ' ' + e.last;
-    //   let lifespan = e.passed - e.year;
-
-    //   console.log(e.passed, e.year, lifespan);
-
-    //   return {inventor: inventor, lifespan: lifespan}
-    // })
-    
-    result = inventors.sort((a,b) => {
-      let aLifespan = a.passed - a.year;
-      a.lifespan = aLifespan;
-      let bLifespan = b.passed - b.year;
-      b.lifespan = b.bLifespan
-
-      return a.lifespan - b.lifespan;
+    let inventorLivespan = inventors.map(e => {
+      let inventor = e.first + ' ' + e.last;
+      let lifespan = e.passed - e.year;
+      return {inventor: inventor, lifespan: lifespan}
     })
+
+    result = inventorLivespan.sort((a,b) => {
+      return a.lifespan - b.lifespan;
+    });
+    
+    // Not sure why this didn't work. Cant seem to append property and sort by it in same opporation.
+    // result = inventors.sort((a,b) => {
+    //   let aLifespan = a.passed - a.year;
+    //   a.lifespan = aLifespan;
+    //   let bLifespan = b.passed - b.year;
+    //   b.lifespan = b.bLifespan
+    //   return a.lifespan - b.lifespan
+    // })
+
+
     console.log('sort inventors by years lived: ', result);
     console.log('\n ...\n');
 
@@ -89,10 +95,33 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    result = people.sort((a,b)=>{
+      let currA = a.substr(0,a.indexOf(','));
+      let currB = a.substr(0,b.indexOf(','));
+
+      if (currA === currB) {
+        currA = a.substr(a.indexOf(',') + 1);
+        currB = a.substr(b.indexOf(',') + 1);
+      }
+
+      return (currA < currB) ? a - b : b - a;
+    })
+
+    console.log('sort people by last name: ', result);
+    console.log('\n ...\n');
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    let transport = {};
+    data.forEach(e => {
+      transport[e] = (transport[e]) ? transport[e] + 1 : 1;
+    })
+
+
+    console.log('sum up the instances of each: ', transport);
+    console.log('\n ...\n');
 
   </script>
 </body>
